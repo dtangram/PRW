@@ -75,25 +75,33 @@ $(document).ready(function () {
     }
   }
 
+  //LOCAL STORAGE
+  nameVal = localStorage.getItem('nameVal');
+  descVal = localStorage.getItem('descVal');
+  categoryVal = localStorage.getItem('categoryVal');
+
+  if (localStorage.getItem('nameVal') && localStorage.getItem('descVal') && localStorage.getItem('categoryVal')) {
+    $("section:nth-child(3) div:nth-child(2)").css("display", "block").html("<p>" + nameVal + "</p>" + "<p>" + descVal + "</p>" + "<p>" + categoryVal + "</p> <img class='deleteBTN' src='img/delete.png'>");
+  }
+
+  //FORM
   $("#menuForm").submit(function (event) {
     event.preventDefault();
+
     nameVal = nameInput.val();
     descVal = descInput.val();
     categoryVal = categoryInput.val();
 
+    //LOCAL STORAGE
+    localStorage.setItem('nameVal', nameVal);
+    localStorage.setItem('descVal', descVal);
+    localStorage.setItem('categoryVal', categoryVal);
+
     $("section:nth-child(3) div:nth-child(2)").css("display", "block").html("<p>" + nameVal + "</p>" + "<p>" + descVal + "</p>" + "<p>" + categoryVal + "</p> <img class='deleteBTN' src='img/delete.png'>");
   });
 
+  //DELETE MENUS
   $("section:nth-child(3)").on("click", ".deleteBTN", function () {
     $(this).closest("article, div:nth-child(2)").remove();
   });
-
-  //LOCAL STORAGE
-  var nameLS = nameVal;
-  var descLS = descVal;
-  var categoryLS = categoryVal;
-
-  nameVal = localStorage.setItem('nameLS', nameLS);
-  descVal = localStorage.setItem('descLS', descLS);
-  categoryVal = localStorage.setItem('categoryLS', categoryLS);
 });
