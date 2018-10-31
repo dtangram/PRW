@@ -33,13 +33,38 @@ $(document).ready(function () {
   descInput.focusout("blur", checkDesc, false);
   categoryInput.focusout("blur", checkCategory, false);
 
+  var modalPopups = function modalPopups(inputField, inputValid) {
+    var formOBJ = {};
+
+    formOBJ.inputField = inputField;
+    formOBJ.inputValid = inputValid;
+
+    formOBJ.inputBorder = function () {
+      if (formOBJ.inputValid.length <= 0) {
+        $(formOBJ.inputField).css("border", "solid 2px #FF0000");
+      } else if (formOBJ.inputValid.length < 4) {
+        $(formOBJ.inputField).css("border", "solid 2px #FF0000");
+      }
+
+      // else{
+      //   $(formOBJ.inputField).css("border", "0");
+      // }
+    };
+
+    return formOBJ;
+  };
+
+  var nameInput1 = modalPopups(nameInput, nameVal);
+  var descInput1 = modalPopups(descInput, descVal);
+  var categoryInput1 = modalPopups(categoryInput, categoryVal);
+
   //NAME VALIDATION
   function checkName() {
     if (this.value.length <= 0) {
-      nameInput.css("border", "solid 2px #FF0000");
+      nameInput1.inputBorder();
       errorName.html("Enter recipe name");
     } else if (this.value.length < 4) {
-      nameInput.css("border", "solid 2px #FF0000");
+      nameInput1.inputBorder();
       errorName.html("Not a valid recipe name");
     } else {
       nameInput.css("border", "0");
@@ -50,10 +75,10 @@ $(document).ready(function () {
   //EMAIL VALIDATION
   function checkDesc() {
     if (this.value.length <= 0) {
-      descInput.css("border", "solid 2px #FF0000");
+      descInput1.inputBorder();
       errorDesc.html("Enter a description");
     } else if (this.value.length < 4) {
-      descInput.css("border", "solid 2px #FF0000");
+      descInput1.inputBorder();
       errorDesc.html("Not a valid description");
     } else {
       descInput.css("border", "0");
@@ -61,13 +86,13 @@ $(document).ready(function () {
     }
   }
 
-  //PASSWORD VALIDATION
+  //CATEGORY VALIDATION
   function checkCategory() {
     if (this.value.length <= 0) {
-      categoryInput.css("border", "solid 2px #FF0000");
+      categoryInput1.inputBorder();
       errorCategory.html("Enter a category");
     } else if (this.value.length < 4) {
-      categoryInput.css("border", "solid 2px #FF0000");
+      categoryInput1.inputBorder();
       errorCategory.html("Not a valid category");
     } else {
       categoryInput.css("border", "0");
@@ -84,7 +109,7 @@ $(document).ready(function () {
     $("section:nth-child(3) div:nth-child(2)").css("display", "block").html("<p>" + nameVal + "</p>" + "<p>" + descVal + "</p>" + "<p>" + categoryVal + "</p> <img class='deleteBTN' src='img/delete.png'>");
   }
 
-  //FORM
+  //SUBMIT
   $("#menuForm").submit(function (event) {
     event.preventDefault();
 
