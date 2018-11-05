@@ -4,12 +4,12 @@ var gulp = require("gulp"),
 
 //SASS Styles Task
 gulp.task("stylesSCSS", function(){
-	return gulp.src("sass/main.scss")
+	return gulp.src("sass/App.scss")
   .pipe(sass({
     style: "expanded"
   }))
 	.pipe(plumber())
-	.pipe(gulp.dest("css/"));
+	.pipe(gulp.dest("src/"));
 });
 
 //Watch Tasks
