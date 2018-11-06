@@ -14,6 +14,8 @@ class Pg2 extends Component{
       ],
     };
 
+    this.focusInput = React.createRef();
+
     this.addExpense = this.addExpense.bind(this);
     this.changeExpense = this.changeExpense.bind(this);
     this.changeAmount = this.changeAmount.bind(this);
@@ -28,8 +30,11 @@ class Pg2 extends Component{
   // }
 
   componentDidMount(){
-    if(localStorage.getItem("expField") && localStorage.getItem("amtField")){
-      let exList = this.state.exList;
+    let exList = this.state.exList;
+
+    this.focusInput.current.focus();
+
+    if(localStorage.getItem(exList)){
       this.setState({exList: exList});
     }
   }
@@ -43,31 +48,51 @@ class Pg2 extends Component{
 
   changeExpense(e){
     e.preventDefault();
+    let expField = document.querySelector("#expField").value;
+    let errExp = document.querySelector("#errExp");
+
     this.setState({expense: e.target.value});
+
+    if(expField === null){
+      errExp.innerHTML ="Please enter a name";
+      return false;
+    }
   }
 
   changeAmount(e){
     e.preventDefault();
+
+    let amtField = document.querySelector("#amtField").value;
+    let errAmt = document.querySelector("#errAmt");
     let amountInput = e.target.value;
+
     amountInput = parseFloat(amountInput).toFixed(2);
     this.setState({amount: amountInput});
+
+    if(amtField === null){
+      errAmt.innerHTML = "Please enter a valid amount";
+      return false;
+    }
   }
 
   addExpense(e){
     e.preventDefault();
+    let errExp = document.querySelector("#errExp");
+    let errAmt = document.querySelector("#errAmt");
     let exList = this.state.exList;
+
     if(exList === null){
-      alert("Please enter a name");
+      errExp.innerHTML ="Please enter a name";
       return false;
     }
 
     if(this.state.amount === 0){
-      alert("Please a valid number");
+      errAmt.innerHTML = "Please enter a valid amount";
       return false;
     }
 
     if(isNaN(this.state.amount)){
-      alert("The amount must be a number");
+      errAmt.innerHTML = "The amount must be a number";
       return false;
     }
 
@@ -93,11 +118,11 @@ class Pg2 extends Component{
           <h2>Add new expense</h2>
 
           <form name="myForm">
-            <label>Expense</label>
-            <input id="expField" type="text" name="expense" onChange={this.changeExpense}/>
+            <p id="errExp"></p>
+            <input id="expField" type="text" name="expense" placeholder="Expense" ref={this.focusInput} onChange={this.changeExpense}/>
 
-            <label>Amount</label>
-            <input id="amtField" type="text" name="amount" onChange={this.changeAmount}/>
+            <input id="amtField" type="text" name="amount" placeholder="Amount" onChange={this.changeAmount}/>
+            <p id="errAmt"></p>
 
             <button type="submit" className="btn" onClick={this.addExpense}>Add</button>
           </form>
