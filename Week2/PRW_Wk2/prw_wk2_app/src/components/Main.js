@@ -1,26 +1,28 @@
 import React, { Component } from 'react';
 import ExpenseList from '../components/ExpenseList';
 
-class Pg2 extends Component{
-  constructor(props){
-    super(props)
+class Main extends Component{
+  // NOT NEEDED WITH NEW UPDATES TO REACT VERSION 16
+  // constructor(props){
+  //   super(props)
 
-    this.state = {
-      exList: [
-        {
-          expense: "Tacos",
-          amount: "2.50"
-        }
-      ],
-    };
-
-    this.focusInput = React.createRef();
-
-    this.addExpense = this.addExpense.bind(this);
-    this.changeExpense = this.changeExpense.bind(this);
-    this.changeAmount = this.changeAmount.bind(this);
-    this.removeExpense = this.removeExpense.bind(this);
+    //this.
+  state = {
+    exList: [
+      {
+        expense: "Tacos",
+        amount: "2.50"
+      }
+    ],
   }
+    
+    focusInput = React.createRef();
+    //THIS IS NO LONGER NEEDED IF YOU CHANGE FUNCTION TO ARROW FUNCTIONS
+    // this.addExpense = this.addExpense.bind(this);
+    // this.changeExpense = this.changeExpense.bind(this);
+    // this.changeAmount = this.changeAmount.bind(this);
+    // this.removeExpense = this.removeExpense.bind(this);
+  //}
 
   // componentWillMount(){
   //   if(localStorage.getItem("expField") && localStorage.getItem("amtField")){
@@ -29,24 +31,22 @@ class Pg2 extends Component{
   //   }
   // }
 
-  componentDidMount(){
+  componentDidMount = () => {
     let exList = this.state.exList;
-
     this.focusInput.current.focus();
-
     if(localStorage.getItem(exList)){
       this.setState({exList: exList});
     }
   }
 
-  componentWillUpdate(nextProps, nextState){
+  componentWillUpdate = (nextProps, nextState) => {
     let expField = document.querySelector("#expField").value;
     let amtField = document.querySelector("#amtField").value;
     localStorage.setItem("expField", expField);
     localStorage.setItem("amtField", amtField);
   }
 
-  changeExpense(e){
+  changeExpense = e => {
     e.preventDefault();
     let expField = document.querySelector("#expField").value;
     let errExp = document.querySelector("#errExp");
@@ -59,7 +59,7 @@ class Pg2 extends Component{
     }
   }
 
-  changeAmount(e){
+  changeAmount = e => {
     e.preventDefault();
 
     let amtField = document.querySelector("#amtField").value;
@@ -75,7 +75,7 @@ class Pg2 extends Component{
     }
   }
 
-  addExpense(e){
+  addExpense = e => {
     e.preventDefault();
     let errExp = document.querySelector("#errExp");
     let errAmt = document.querySelector("#errAmt");
@@ -97,13 +97,14 @@ class Pg2 extends Component{
     }
 
     this.state.exList.push({"expense": this.state.expense, "amount": this.state.amount});
-    this.setState({exList: this.state.exList});
+    this.setState({exList});
+    e.target.reset();
   }
 
-  removeExpense(key){
+  removeExpense = key => {
     let exList = this.state.exList;
     this.state.exList.splice(key, 1);
-    this.setState({exList: this.state.exList});
+    this.setState({exList});
     localStorage.setItem("exList", JSON.stringify(exList));
   }
 
@@ -116,21 +117,20 @@ class Pg2 extends Component{
       <main className="ContactList">
         <section className="add">
           <h2>Add new expense</h2>
-
-          <form name="myForm">
+          {/*This week you will need to change the form to a component*/}
+          <form name="myForm" onSubmit={this.addExpense}>
             <p id="errExp"></p>
             <input id="expField" type="text" name="expense" placeholder="Expense" ref={this.focusInput} onChange={this.changeExpense}/>
 
             <input id="amtField" type="text" name="amount" placeholder="Amount" onChange={this.changeAmount}/>
             <p id="errAmt"></p>
-
-            <button type="submit" className="btn" onClick={this.addExpense}>Add</button>
+            {/*CHANGED FUNCTION TO RUN ON SUBMIT NOT BUTTON*/}
+            <button type="submit" className="btn">Add</button>
           </form>
         </section>
 
         <section className="currExp">
           <h2>Current Expenses</h2>
-
           <article className="contentScroll">
             <ul className="expenseCont">{myExpenses}</ul>
           </article>
@@ -140,4 +140,4 @@ class Pg2 extends Component{
   }
 }
 
-export default Pg2;
+export default Main;

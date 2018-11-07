@@ -8,8 +8,7 @@ class ExpenseList extends Component{
       <li key={this.props.id} className="list">
         <span>{this.props.val.expense}</span>
         <span>${this.props.val.amount}</span>
-
-          <button className="btn btn-small" onClick={this.props.delMe}><MdDelete/></button>
+        <button className="btn btn-small" onClick={this.props.delMe}><MdDelete/></button>
       </li>
     )
   }
