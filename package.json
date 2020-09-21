@@ -1,0 +1,35 @@
+{
+  "name": "prw_wk1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "gulp": "gulp",
+    "babel": "babel",
+    "babel watch": "babel-watch",
+    "build": "babel --presets es2015 babel/src -d js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dtangram/PRW/tree/master/Week1/PRW_Wk1"
+  },
+  "author": "Douglas T. Angram",
+  "license": "ISC",
+  "dependencies": {
+    "global": "^4.3.2",
+    "npm": "^6.4.1"
+  },
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-watch": "^2.0.7",
+    "gulp": "^3.9.1",
+    "gulp-cli": "^2.0.1",
+    "gulp-plumber": "^1.2.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-watch": "^5.0.1",
+    "http-server": "^0.11.1"
+  }
+}
